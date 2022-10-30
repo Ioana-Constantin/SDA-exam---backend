@@ -1,0 +1,42 @@
+[
+	{
+		"id": "987cc6d3-71e1-4675-b697-64faee1f81ae",
+		"assignee": "Ioana",
+		"title": "task 1",
+		"status": "in testing",
+		"details": "task 1 deals with the following details",
+        "department":["Prod", "DevOps"]
+	},
+	{
+		"id": "10a27b32-8123-4968-8f16-f5bc149ad821",
+		"assignee": "Andrei",
+		"title": "task 2",
+		"status": "in progress",
+		"details": "task 2 deals with the following details and is in progress state",
+        "department":["Prod", "QA"]
+	},
+	{
+		"id": "2ef40ea5-2716-4124-9897-e16ea18d1356",
+		"assignee": "Bogdan",
+		"title": "task 3",
+		"status": "not started",
+		"details": "task 3 deals with the following details and needs to be tested",
+        "department":["Approvals", "Prod","QA","DevOps"]
+	},
+	{
+		"id": "f0c868c7-f54e-467e-9771-f4b5042bb95b",
+		"assignee": "Adina",
+		"title": "task 4",
+		"status": "done",
+		"details": "task 4 deals is done",
+        "department":["Prod", "DevOps"]
+	},
+	{
+		"id": "a9d75280-e167-4f7f-a823-b217ecf99005",
+		"assignee": "",
+		"title": "task 5",
+		"status": "not started",
+		"details": "task 5 is new, not assigned and not started",
+        "department":["Prod", "DevOps","QA"]
+	}
+]
