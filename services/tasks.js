@@ -38,18 +38,25 @@ const getAllTasks =  async () => {
         LEFT JOIN users u ON t.user_id = u.id
         ORDER BY t.id`;
     const res = await db_all(sql);
-
     res.forEach(element => {
         department = getDeptNames(element.department)
         element.department = department;
     });
 
-    console.log('res', res);
     return res;
 }
 
+// const test =  async () => {
+//     let sql =`
+//         SELECT * FROM tasks`;
+//     const res = await db_all(sql);
+//     console.log('test status', res);
+//     // return res;
+// }
+
 // (async function() {
-// 	await getAllTasks();
+// 	await test();
+//     // await getAllTasks();
 // })();
 
 exports.getAllTasks = getAllTasks;

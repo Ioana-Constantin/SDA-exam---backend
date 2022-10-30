@@ -75,10 +75,10 @@ db.run("INSERT INTO users (first_name, last_name) VALUES ('Bogdan', 'Test')");
 db.run("INSERT INTO users (first_name, last_name) VALUES ('Adina', 'Test')");
 db.run("INSERT INTO users (first_name, last_name) VALUES ('Carmen', 'Test')");
 
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (1,3, 'task 1','task 1 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (2,3, 'task 2','task 2 deals with the following details')");
+db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (1,1, 'task 1','task 1 deals with the following details')");
+db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (2,2, 'task 2','task 2 deals with the following details')");
 db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (3,3, 'task 3','task 3 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (4,3, 'task 4','task 4 deals with the following details')");
+db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (4,4, 'task 4','task 4 deals with the following details')");
 db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (5,3, 'task 5','task 5 deals with the following details')");
 db.run("INSERT INTO tasks (status_id, title, details) VALUES (3, 'task 6','task 6 deals with the following details')");
 db.run("INSERT INTO tasks (user_id, title, details) VALUES (3, 'task 7','task 7 deals with the following details')");
