@@ -17,7 +17,7 @@ const getDeptNames = (depts) => {
     let deptsArr = [];
     depts.split(',').map(el => {
         let id = map.filter(m => m.id == el);
-        deptsArr.push(id[0].description)
+        deptsArr.push(id[0]?.description)
     });
     return deptsArr;
 }
@@ -48,8 +48,8 @@ const getAllTasks =  async () => {
     return res;
 }
 
-(async function() {
-	await getAllTasks();
-})();
+// (async function() {
+// 	await getAllTasks();
+// })();
 
 exports.getAllTasks = getAllTasks;

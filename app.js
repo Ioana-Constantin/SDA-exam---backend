@@ -9,12 +9,10 @@ app.get('/', (req, res) => {
 })
 
 app.get('/all-tasks', async (req, res) => {
-    // const dbMock = fs.readFileSync(__dirname + '/db-mock.json', { encoding: 'utf8', flag: 'r' })
     const tasks = await tasksService.getAllTasks();
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
-    // res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('content-type', 'application/json');
-    res.status(200).send(JSON.parse(dbMock));
+    res.status(200).send(JSON.stringify(tasks));
 })
 
 app.listen(port, () => {
