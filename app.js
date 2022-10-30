@@ -2,13 +2,15 @@ const express = require('express');
 const fs = require('fs');
 const app = express();
 const port = 8000;
+const tasksService = require('./services/tasks');
 
 app.get('/', (req, res) => {
     res.send('Hello World!')
 })
 
-app.get('/all-tasks', (req, res) => {
-    const dbMock = fs.readFileSync(__dirname + '/db-mock.json', { encoding: 'utf8', flag: 'r' })
+app.get('/all-tasks', async (req, res) => {
+    // const dbMock = fs.readFileSync(__dirname + '/db-mock.json', { encoding: 'utf8', flag: 'r' })
+    const tasks = await tasksService.getAllTasks();
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
     // res.setHeader('Access-Control-Allow-Credentials', 'true');
     res.setHeader('content-type', 'application/json');
