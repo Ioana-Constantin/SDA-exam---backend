@@ -1,11 +1,11 @@
-const { db_all } = require('../db/utils');
+const { dbAll, dbRunInsert, dbRunUpdate, dbRunDelete, dbEach } = require('../db/utils');
 
 let map = [];
 
 const departmentMappings = async () => {
     let sql =`
         SELECT * FROM departments`;
-    map = await db_all(sql);
+    map = await dbAll(sql);
 }
 
 (async function() {
@@ -15,10 +15,13 @@ const departmentMappings = async () => {
 
 const getDeptNames = (depts) => {
     let deptsArr = [];
-    depts.split(',').map(el => {
-        let id = map.filter(m => m.id == el);
-        deptsArr.push(id[0]?.description)
-    });
+    if(depts && depts.length){
+
+        depts.split(',').map(el => {
+            let id = map.filter(m => m.id == el);
+            deptsArr.push(id[0]?.description)
+        });
+    }
     return deptsArr;
 }
 
@@ -37,7 +40,7 @@ const getAllTasks =  async () => {
         LEFT JOIN status s ON t.status_id = s.id
         LEFT JOIN users u ON t.user_id = u.id
         ORDER BY t.id`;
-    const res = await db_all(sql);
+    const res = await dbAll(sql);
     res.forEach(element => {
         department = getDeptNames(element.department)
         element.department = department;
@@ -46,17 +49,93 @@ const getAllTasks =  async () => {
     return res;
 }
 
+//ok
+const createNewTask = async (task) => {
+    const sql = `INSERT INTO tasks (user_id, status_id, title, details) VALUES (?, ?, ?, ?)`
+    const values = [task.userId || null, task.statusId || null, task.title || null , task.details || null ]
+    const newTaskId = await dbRunInsert(sql, values);
+    console.log(`New task was created, id :: ${newTaskId}`);
+    return await getTaskById(newTaskId);
+}
+
+// ok
+const deleteTask = async (taskId) => {
+    const sql = `DELETE FROM tasks WHERE id = (?)`
+    return dbRunDelete(sql, taskId);
+}
+
+// ok
+const updateTask = async (task, taskId) => {
+    let updatedFields = '';
+    let values = [];
+
+    if (task.userId){
+        updatedFields += 'user_id = (?),';
+        values.push(task.userId);
+    }
+
+    if (task.statusId){
+        updatedFields += 'status_id = (?),';
+        values.push(task.statusId);
+    }
+
+    if (task.title){
+        updatedFields += 'title = (?),';
+        values.push(task.title);
+    }
+
+    if (task.details){
+        updatedFields += 'details = (?),';
+        values.push(task.details);
+    }
+
+    const sql = `UPDATE tasks SET ${updatedFields.slice(0,-1)} WHERE id = (?)`
+    values.push(taskId);
+    return dbRunUpdate(sql, values);
+}
+
+// ok
+const getTaskById = async (taskId) => {
+    const sql = `SELECT * FROM tasks WHERE id = (?)`
+    return dbEach(sql, taskId);
+}
+
 // const test =  async () => {
-//     let sql =`
-//         SELECT * FROM tasks`;
-//     const res = await db_all(sql);
+//     let task = {
+
+//                 title: "updated title"
+//             }
+//     const res = await getTaskById( 11);
+//     console.log('RESSS', res);
+//     // const res = await updateTask(task, 11);
+//     // console.log('test status', res);
+//     // return res;
+// }
+
+// (async function() {
+
+// 	await test();
+//     // let tasks = await getAllTasks();
+//     // console.log('------------', tasks)
+// })();
+
+// const test2 =  async () => {
+//     let task = {
+//         user_id: 5,
+//         status_id: 3, 
+//         details: "asdasdasdasdsasadsa"
+//     }
+//     const res = await createNewTask(task);
 //     console.log('test status', res);
 //     // return res;
 // }
 
 // (async function() {
-// 	await test();
+// 	await test2();
 //     // await getAllTasks();
 // })();
 
 exports.getAllTasks = getAllTasks;
+exports.createNewTask = createNewTask;
+exports.updateTask = updateTask;
+exports.deleteTask = deleteTask;
