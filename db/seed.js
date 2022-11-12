@@ -10,6 +10,7 @@ db.run(
         user_id INTEGER,
         status_id INTEGER,
         title TEXT,
+        due_date TEXT,
         details TEXT
     )`
 );
@@ -75,13 +76,13 @@ db.run("INSERT INTO users (first_name, last_name) VALUES ('Bogdan', 'Test')");
 db.run("INSERT INTO users (first_name, last_name) VALUES ('Adina', 'Test')");
 db.run("INSERT INTO users (first_name, last_name) VALUES ('Carmen', 'Test')");
 
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (1,1, 'task 1','task 1 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (2,2, 'task 2','task 2 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (3,3, 'task 3','task 3 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (4,4, 'task 4','task 4 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, status_id, title, details) VALUES (5,3, 'task 5','task 5 deals with the following details')");
-db.run("INSERT INTO tasks (status_id, title, details) VALUES (3, 'task 6','task 6 deals with the following details')");
-db.run("INSERT INTO tasks (user_id, title, details) VALUES (3, 'task 7','task 7 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, user_id, status_id, title, details) VALUES ('01/01/1970',1,1, 'task 1','task 1 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, user_id, status_id, title, details) VALUES ('01/01/1970' ,2,2, 'task 2','task 2 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, user_id, status_id, title, details) VALUES ('01/01/1970' ,3,3, 'task 3','task 3 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, user_id, status_id, title, details) VALUES ('01/01/1970' ,4,4, 'task 4','task 4 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, user_id, status_id, title, details) VALUES ('01/01/1970' ,5,3, 'task 5','task 5 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, status_id, title, details) VALUES ('01/01/1970',3, 'task 6','task 6 deals with the following details')");
+db.run("INSERT INTO tasks (due_date, user_id, title, details) VALUES ('01/01/1970',3, 'task 7','task 7 deals with the following details')");
   
 db.run("INSERT INTO task_department_assign (task_id, department_id) VALUES (1,1)");
 db.run("INSERT INTO task_department_assign (task_id, department_id) VALUES (2,1)");
