@@ -51,7 +51,7 @@ const getAllTasks =  async () => {
 
 //ok
 const createNewTask = async (task) => {
-    const sql = `INSERT INTO tasks (user_id, status_id, title, details) VALUES (?, ?, ?, ?)`
+    const sql = `INSERT INTO tasks (user_id, status_id, title, details, due_date) VALUES (?, ?, ?, ?, ?)`
     const values = [task.userId || null, task.statusId || null, task.title || null , task.details || null, task.dueDate || "01/01/1970" ]
     const newTaskId = await dbRunInsert(sql, values);
     console.log(`New task was created, id :: ${newTaskId}`);
