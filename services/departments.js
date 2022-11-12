@@ -5,7 +5,7 @@ const getAllDepartments =  async () => {
         SELECT *
         FROM departments
         ORDER BY id`;
-    const res = await dbAll(sql);
+    const res = await dbAll(sql, []);
 
     return res;
 }
@@ -15,7 +15,6 @@ const createNewDepartment = async (department) => {
     const sql = `INSERT INTO departments (description) VALUES (?)`
     const values = [department.description || null]
     const newDepartmentId = await dbRunInsert(sql, values);
-    console.log(`New department was created, id :: ${newDepartmentId}`);
     return await getDepartmentById(newDepartmentId);
 }
 
@@ -46,7 +45,28 @@ const getDepartmentById = async (departmentId) => {
     return dbEach(sql, departmentId);
 }
 
+const assignDepartmentToTask = async (department, taskId) => {
+    const sql = `INSERT INTO task_department_assign (task_id, department_id) VALUES (?, ?)`
+    // return dbEach(sql, departmentId);
+   return await dbRunInsert(sql, [department, taskId]);
+}
+
+const deleteDepartmentsFromTask = async (taskId) => {
+    const sql = `DELETE FROM task_department_assign WHERE task_id = (?)`
+    return dbRunDelete(sql, taskId);
+}
+
+const assignDepartmentsToTask = async (departments, taskId) => {
+    const res = await Promise.all(departments.map(department => {
+        let sql = `INSERT INTO task_department_assign (task_id, department_id) VALUES (? , ?)`
+        dbRunInsert(sql, [taskId, department]);
+    }) )
+    return res;
+}
+
 exports.getAllDepartments = getAllDepartments;
 exports.createNewDepartment = createNewDepartment;
 exports.updateDepartment = updateDepartment;
 exports.deleteDepartment = deleteDepartment;
+exports.deleteDepartmentsFromTask = deleteDepartmentsFromTask;
+exports.assignDepartmentsToTask = assignDepartmentsToTask;

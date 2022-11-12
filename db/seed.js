@@ -60,10 +60,10 @@ ${JSON.stringify(tables, null, 1)}
 });
 
 // Adding values to the tables
-db.run("INSERT INTO status (description) VALUES ('not started')");
-db.run("INSERT INTO status (description) VALUES ('in progress')");
-db.run("INSERT INTO status (description) VALUES ('in testing')");
-db.run("INSERT INTO status (description) VALUES ('done')");
+db.run("INSERT INTO status (id,description) VALUES (1,'not started')");
+db.run("INSERT INTO status (id,description) VALUES (2,'in progress')");
+db.run("INSERT INTO status (id,description) VALUES (3,'in testing')");
+db.run("INSERT INTO status (id,description) VALUES (4,'done')");
 
 db.run("INSERT INTO departments (description) VALUES ('Approvals')");
 db.run("INSERT INTO departments (description) VALUES ('Prod')");

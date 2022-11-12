@@ -100,6 +100,16 @@ app.delete('/departments/:departmentId', async (req, res) => {
     res.status(200).send(JSON.stringify(department));
 })
 
+// ---------------DEPARTMENT ASSIGN ROUTE-----------------------
+
+app.post('/departments-assign/:taskId', async (req, res) => {
+    await departmentsService.deleteDepartmentsFromTask(req.params.taskId);
+    const departments = await departmentsService.assignDepartmentsToTask(req.body.departmentIds, req.params.taskId);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('content-type', 'application/json');
+    res.status(200).send(JSON.stringify({ok: true}));
+})
+
 app.listen(port, () => {
     console.log(`Ioana SDA BE app listening on port ${port}`)
 })

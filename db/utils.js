@@ -3,9 +3,9 @@ const sqlite3 = require('sqlite3').verbose();
 // open the database
 let db = new sqlite3.Database('tasksApp.db');
 
-const dbAll =async (query) => {
+const dbAll =async (query, values) => {
     return new Promise(function(resolve,reject){
-        db.all(query, function(err,rows){
+        db.all(query, values, function(err,rows){
             if(err){    
                 return reject(err);
             }

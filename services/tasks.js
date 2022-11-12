@@ -31,8 +31,10 @@ const getAllTasks =  async () => {
             t.id, 
             t.title, 
             t.details, 
-            u.first_name AS assignee, 
+            u.first_name AS assignee,
+            u.id AS userId,
             s.description AS status,
+            s.id AS statusId,
             (SELECT GROUP_CONCAT(department_id) 
                 FROM task_department_assign d 
                 WHERE d.task_id = t.id) AS department
@@ -87,6 +89,11 @@ const updateTask = async (task, taskId) => {
     if (task.details){
         updatedFields += 'details = (?),';
         values.push(task.details);
+    }
+
+    if (task.dueDate){
+        updatedFields += 'due_date = (?),';
+        values.push(task.dueDate);
     }
 
     const sql = `UPDATE tasks SET ${updatedFields.slice(0,-1)} WHERE id = (?)`
