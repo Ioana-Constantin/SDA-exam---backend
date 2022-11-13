@@ -12,8 +12,8 @@ const getAllDepartments =  async () => {
 
 //ok
 const createNewDepartment = async (department) => {
-    const sql = `INSERT INTO departments (description) VALUES (?)`
-    const values = [department.description || null]
+    const sql = `INSERT INTO departments (description, color) VALUES (?, ?)`
+    const values = [department.description || '', department.color || '#BA55D3']
     const newDepartmentId = await dbRunInsert(sql, values);
     return await getDepartmentById(newDepartmentId);
 }
@@ -34,6 +34,13 @@ const updateDepartment = async (department, departmentId) => {
         values.push(department.description);
     }
 
+    
+    if (department.color){
+        updatedFields += 'color = (?),';
+        values.push(department.color);
+    }
+
+
     const sql = `UPDATE departments SET ${updatedFields.slice(0,-1)} WHERE id = (?)`
     values.push(departmentId);
     return dbRunUpdate(sql, values);
@@ -43,12 +50,6 @@ const updateDepartment = async (department, departmentId) => {
 const getDepartmentById = async (departmentId) => {
     const sql = `SELECT * FROM departments WHERE id = (?)`
     return dbEach(sql, departmentId);
-}
-
-const assignDepartmentToTask = async (department, taskId) => {
-    const sql = `INSERT INTO task_department_assign (task_id, department_id) VALUES (?, ?)`
-    // return dbEach(sql, departmentId);
-   return await dbRunInsert(sql, [department, taskId]);
 }
 
 const deleteDepartmentsFromTask = async (taskId) => {

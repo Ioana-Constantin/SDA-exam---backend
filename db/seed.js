@@ -18,7 +18,8 @@ db.run(
 db.run(
     `CREATE TABLE IF NOT EXISTS departments (
         id INTEGER PRIMARY KEY NOT NULL,
-        description TEXT
+        description TEXT,
+        color TEXT
     )`
 );
 
@@ -65,10 +66,10 @@ db.run("INSERT INTO status (id,description) VALUES (2,'in progress')");
 db.run("INSERT INTO status (id,description) VALUES (3,'in testing')");
 db.run("INSERT INTO status (id,description) VALUES (4,'done')");
 
-db.run("INSERT INTO departments (description) VALUES ('Approvals')");
-db.run("INSERT INTO departments (description) VALUES ('Prod')");
-db.run("INSERT INTO departments (description) VALUES ('QA')");
-db.run("INSERT INTO departments (description) VALUES ('DevOps')");
+db.run("INSERT INTO departments (description, color) VALUES ('Approvals', '#DE5BBD')");
+db.run("INSERT INTO departments (description, color) VALUES ('Prod','#5B7CDE' )");
+db.run("INSERT INTO departments (description, color) VALUES ('QA', '#DEBD5B')");
+db.run("INSERT INTO departments (description, color) VALUES ('DevOps', '#5BDE7B')");
 
 db.run("INSERT INTO users (first_name, last_name) VALUES ('Andrei', 'Test')");
 db.run("INSERT INTO users (first_name, last_name) VALUES ('Ioana', 'Test')");
