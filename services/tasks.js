@@ -30,12 +30,13 @@ const getAllTasks =  async () => {
         SELECT 
             t.id, 
             t.title, 
-            t.details, 
+            t.details,
+            t.due_date AS dueDate,
             u.first_name AS assignee,
             u.id AS userId,
             s.description AS status,
             s.id AS statusId,
-            (SELECT GROUP_CONCAT(department_id) 
+            (SELECT GROUP_CONCAT(department_id)
                 FROM task_department_assign d 
                 WHERE d.task_id = t.id) AS department
         FROM tasks t
@@ -146,3 +147,4 @@ exports.getAllTasks = getAllTasks;
 exports.createNewTask = createNewTask;
 exports.updateTask = updateTask;
 exports.deleteTask = deleteTask;
+exports.getTaskById = getTaskById;

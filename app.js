@@ -21,6 +21,13 @@ app.get('/all-tasks', async (req, res) => {
     res.status(200).send(JSON.stringify(tasks));
 })
 
+app.get('/tasks/:taskId', async (req, res) => {
+    const tasks = await tasksService.getTaskById(req.params.taskId);
+    res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
+    res.setHeader('content-type', 'application/json');
+    res.status(200).send(JSON.stringify(tasks));
+})
+
 app.post('/tasks', async (req, res) => {
     const task = await tasksService.createNewTask(req.body);
     res.setHeader('Access-Control-Allow-Origin', 'http://localhost:3000');
